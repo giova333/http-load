@@ -36,21 +36,25 @@ func parseCmd() *LoadDefinition {
 	validateUrl(targetUrl)
 	validateMethod(*method)
 
+	loadDefinition := NewLoadDefinition(*numOfRequests, *concurrencyLevel, targetUrl, *method, *payloadRow, headers)
+	printLoadDefinition(loadDefinition)
+	return loadDefinition
+}
+
+func printLoadDefinition(definition *LoadDefinition) {
 	fmt.Println("--------------------------------------------")
 	fmt.Println("Load description:")
-	fmt.Printf("Number of requests: %d\n", *numOfRequests)
-	fmt.Printf("Concurrency level: %d\n", *concurrencyLevel)
-	fmt.Printf("Method: %s\n", *method)
-	if *payloadRow != "" {
-		fmt.Printf("Payload: %s\n", *payloadRow)
+	fmt.Printf("Target url: %s\n", definition.targetUrl)
+	fmt.Printf("Number of requests: %d\n", definition.numOfRequests)
+	fmt.Printf("Concurrency level: %d\n", definition.concurrencyLevel)
+	fmt.Printf("Method: %s\n", definition.method)
+	if definition.payload != "" {
+		fmt.Printf("Payload: %s\n", definition.payload)
 	}
-	if len(headers) != 0 {
-		fmt.Printf("Headers: %s\n", headers)
+	if len(definition.headers) != 0 {
+		fmt.Printf("Headers: %s\n", definition.headers)
 	}
 	fmt.Println("--------------------------------------------")
-
-	loadDefinition := NewLoadDefinition(*numOfRequests, *concurrencyLevel, targetUrl, *method, *payloadRow, headers)
-	return loadDefinition
 }
 
 func validateRequestNum(numOfRequests int, concurrencyLevel int) {

@@ -34,3 +34,9 @@ Alternatively, instead of passing a row payload you can use file:
 -h "Content-Type: application/json" \
 -f payload.json https://myEndpoint.com
 ```
+
+* Real example
+```bash
+ ./http-load -n 21 -c 5 https://google.com
+```
+![Response](sample.png)
